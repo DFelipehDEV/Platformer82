@@ -1,0 +1,26 @@
++Main
+	+Parents
+		|parActive
+		|parTerrain
+		|parSolid
+		|parPlatform
+		|parInteractable
+	+Controllers
+		|objControllerInput
+		|objControllerHUD
+		|objControllerRender
+		|objControllerAudio
+		|objControllerRoom
+		|objControllerRes
+	+Player
+		|objRoboSonic
+		|objPlayer
+		|objCamera
+	|objRat
++Collision masks
+	|objCollisionMask1
+	|objCollisionMask2
+	|objCollisionMask3
+	|objCollisionMask4
+	|objCollisionMask5
+	|objCollisionMask6

@@ -1,0 +1,17 @@
+input=objControllerInput
+collisionSolid=0
+collisionPlatform=1
+actionNormal=0
+actionJump=1
+actionLookup=2
+actionCrouch=3
+inputMLeft=0
+inputMRight=1
+inputMUp=2
+inputMDown=3
+inputMAct=4
+inputMSpecial1=5
+inputMSpecial2=6
+inputMStart=7
+screenWidth=426
+screenHeight=240
