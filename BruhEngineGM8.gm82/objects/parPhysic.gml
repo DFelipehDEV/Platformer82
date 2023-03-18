@@ -4,6 +4,8 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+/// -- Variables
+
     ySpeed = 0;             // -- Vertical speed (air)
 
     ground = 0;             // -- 0 - in air // -- 1 - in ground
@@ -27,98 +29,97 @@ applies_to=self
 */
 /// -- Main movement
 
+    // -- Main movement
+    var i;
 
-// -- Main movement
-var i;
-
-if (ground && scrCollisionMain(x, y + 5, collisionSolid) &&
-    !scrCollisionMain(x + pSpeed, y, collisionSolid) &&
-    !scrCollisionMain(x + pSpeed, y + 1, collisionSolid))
-{
-    x += pSpeed;
-
-    for (i = 0; i < abs(pSpeed) + 2; i += 1)
+    if (ground && scrCollisionMain(x, y + 5, collisionSolid) &&
+        !scrCollisionMain(x + pSpeed, y, collisionSolid) &&
+        !scrCollisionMain(x + pSpeed, y + 1, collisionSolid))
     {
-        // -- Go down
-        if (!(scrCollisionMain(x, y + 1, collisionSolid)))
+        x += pSpeed;
+
+        for (i = 0; i < abs(pSpeed) + 2; i += 1)
         {
-            y += 1;
-        }
-    }
-}
-else // -- Go up
-{
-    // -- Check if is meeting a solid
-    var collisionMain;
-    collisionMain = scrCollisionMain(x + pSpeed, y, collisionSolid);
-
-    if (collisionMain)
-    {
-        slopeHeight = 0;
-
-        for (i = 0; i < 4 + abs(pSpeed); i += 1)
-        {
-            // -- Keep adding 1 to slopeHeight until it's value is greater than our slope height or until the statement isn't true
-            var collisionSlope;
-            collisionSlope = scrCollisionMain(x + pSpeed, y - slopeHeight, collisionSolid);
-
-            if (collisionSlope && slopeHeight <= 5)
+            // -- Go down
+            if (!(scrCollisionMain(x, y + 1, collisionSolid)))
             {
-                slopeHeight += 1;
+                y += 1;
             }
         }
+    }
+    else // -- Go up
+    {
+        // -- Check if is meeting a solid
+        var collisionMain;
+        collisionMain = scrCollisionMain(x + pSpeed, y, collisionSolid);
 
-        // -- Check if we are colliding a wall and not a slope
-        var collisionWall;
-        collisionWall = scrCollisionMain(x + pSpeed, y - slopeHeight, collisionSolid);
-
-        if (collisionWall)
+        if (collisionMain)
         {
-            for (i = 0; i < 2 + abs(pSpeed); i += 1)
-            {
-                // -- Move up with the slope x
-                var collisionX;
-                collisionX = scrCollisionMain(x + sign(pSpeed), y, collisionSolid);
+            slopeHeight = 0;
 
-                if (!(collisionX))
+            for (i = 0; i < 4 + abs(pSpeed); i += 1)
+            {
+                // -- Keep adding 1 to slopeHeight until it's value is greater than our slope height or until the statement isn't true
+                var collisionSlope;
+                collisionSlope = scrCollisionMain(x + pSpeed, y - slopeHeight, collisionSolid);
+
+                if (collisionSlope && slopeHeight <= 5)
                 {
-                    x += sign(pSpeed);
+                    slopeHeight += 1;
                 }
             }
-            pSpeed = 0;
+
+            // -- Check if we are colliding a wall and not a slope
+            var collisionWall;
+            collisionWall = scrCollisionMain(x + pSpeed, y - slopeHeight, collisionSolid);
+
+            if (collisionWall)
+            {
+                for (i = 0; i < 2 + abs(pSpeed); i += 1)
+                {
+                    // -- Move up with the slope x
+                    var collisionX;
+                    collisionX = scrCollisionMain(x + sign(pSpeed), y, collisionSolid);
+
+                    if (!(collisionX))
+                    {
+                        x += sign(pSpeed);
+                    }
+                }
+                pSpeed = 0;
+            }
+            else // -- Otherwise, we are moving up a slope
+            {
+                y -= slopeHeight;
+            }
         }
-        else // -- Otherwise, we are moving up a slope
-        {
-            y -= slopeHeight;
-        }
+
+        // -- Approach to the pSpeed
+        x += pSpeed;
     }
 
-    // -- Approach to the pSpeed
-    x += pSpeed;
-}
-
-for (i = 0; i < abs(pSpeed) + 1; i += 1)
-{
-    // -- Vertical movement
-    var collisionVertical;
-    collisionVertical = scrCollisionMain(x, y + ySpeed, parSolid);
-
-    if (collisionVertical)
+    for (i = 0; i < abs(pSpeed) + 1; i += 1)
     {
-        // -- Leave the solid
-        var collisionLeave;
-        collisionLeave = !(scrCollisionMain(x, y + sign(ySpeed), parSolid));
+        // -- Vertical movement
+        var collisionVertical;
+        collisionVertical = scrCollisionMain(x, y + ySpeed, parSolid);
 
-        if (collisionLeave)
+        if (collisionVertical)
         {
-            y += sign(ySpeed);
-        }
-        ySpeed = 0;
-    }
-}
+            // -- Leave the solid
+            var collisionLeave;
+            collisionLeave = !(scrCollisionMain(x, y + sign(ySpeed), parSolid));
 
-// -- Approach to the ySpeed
-y += ySpeed;
+            if (collisionLeave)
+            {
+                y += sign(ySpeed);
+            }
+            ySpeed = 0;
+        }
+    }
+
+    // -- Approach to the ySpeed
+    y += ySpeed;
 
 
 /*
@@ -246,10 +247,13 @@ applies_to=self
     // -- Unclip
     if (near != noone)
     {
-        x -= sign(near.x - x);
-        y -= sign(near.y - y);
+        if (place_meeting(x + pSpeed, y, parTerrain) == false)
+        {
+            x -= sign(near.x - x);
+            y -= sign(near.y - y);
 
-        pSpeed -= sign(near.x - x);
+            pSpeed -= sign(near.x - x);
+        }
     }
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -17,8 +17,6 @@
 		|objRoboSonic
 		|objPlayer
 		|objCamera
-	|objRat
-	|objBall
 	|objCannon
 +Collision masks
 	|objCollisionMask1
@@ -27,3 +25,6 @@
 	|objCollisionMask4
 	|objCollisionMask5
 	|objCollisionMask6
++Physics
+	|objBall
+	|objRat
