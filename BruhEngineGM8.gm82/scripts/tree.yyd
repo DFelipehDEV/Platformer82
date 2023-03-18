@@ -1,0 +1,21 @@
+|scrInit
+|credits
++Player
+	+Actions
+		|scrPlayerActionNormal
+		|scrPlayerActionJump
+		|scrPlayerActionLookup
+		|scrPlayerActionCrouch
+	+Animations
+		|scrPlayer1Animations
++Utils
+	+Collision
+		|scrCollisionMain
+	+Movement
+		|scrMovementHorizontal
+		|scrMovementSlopes
+	+Misc
+		|scrApproach
+		|scrAnimationSet
+		|scrAnimationApply
+|scrPhysicsAngleSet

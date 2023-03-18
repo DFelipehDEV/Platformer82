@@ -1,0 +1,8 @@
+name=Evil Empire
+size=12
+bold=0
+italic=0
+charset=1
+aa_level=2
+range_start=32
+range_end=127
