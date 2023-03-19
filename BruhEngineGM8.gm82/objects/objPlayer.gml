@@ -192,15 +192,25 @@ applies_to=self
 */
 /// -- Physical push
 
-
     var physicalobj;
     physicalobj = instance_place(x + xSpeed, y, parInteractable);
     if (place_meeting(x + xSpeed, y, physicalobj))
     {
         //x -= sign(physicalobj.x - x);
         //y -= sign(physicalobj.y - y);
-        physicalobj.pSpeed = (x - xprevious);
-        physicalobj.image_angle += x - xprevious;
+
+
+        // -- Check if the object is touching a wall or another object
+        if place_meeting(physicalobj.x - 16, physicalobj.y - 3, parTerrain) && scrPhysicsReturnDir(physicalobj) <= 0
+        || place_meeting(physicalobj.x + 16, physicalobj.y - 3, parTerrain) && scrPhysicsReturnDir(physicalobj) == 1
+        {
+            //xSpeed = 0;
+        }
+        else
+        {
+            physicalobj.pSpeed = (x - xprevious);
+            physicalobj.image_angle += x - xprevious;
+        }
         //physicalobj.y += y - yprevious;
     }
 #define Draw_0

@@ -1,6 +1,7 @@
 /// scrMovementSlopes()
 
 
+    // -- Check if we are not touching a wall
     if (ground && scrCollisionMain(x, y + 5, collisionSolid)
     && !scrCollisionMain(x + xSpeed, y, collisionSolid)
     && !(scrCollisionMain(x + xSpeed, y + 1, collisionSolid)))
@@ -8,7 +9,7 @@
         x += xSpeed;
 
         // -- Go down
-        repeat (abs(xSpeed) + 3)
+        repeat (abs(xSpeed) + 2)
         {
             if !(scrCollisionMain(x, y + 1, collisionSolid))
             {
@@ -18,13 +19,13 @@
     }
     else // -- Go up
     {
-        // -- Check if is meeting a solid
+        // -- Check if it is a solid
         if scrCollisionMain(x + xSpeed, y, collisionSolid)
         {
             slopeHeight = 0;
 
             // -- Keep adding 1 to slopeHeight until it's value is greater than our slope height or until the statement isn't true
-            repeat (3 + abs(xSpeed))
+            repeat (2 + abs(xSpeed))
             {
                 if (scrCollisionMain(x + xSpeed, y - slopeHeight, collisionSolid) && slopeHeight <= 5)
                 {
@@ -35,7 +36,7 @@
             // -- If even after adding slopeHeight to our y coordinate would result in a collision, that means we are moving into a wall
             if scrCollisionMain(x + xSpeed, y - slopeHeight, collisionSolid)
             {
-                repeat (3 + abs(xSpeed))
+                repeat (2 + abs(xSpeed))
                 {
                     // -- Move up with the slope x
                     if (!scrCollisionMain(x + sign(xSpeed), y, collisionSolid))

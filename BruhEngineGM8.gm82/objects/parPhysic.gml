@@ -4,8 +4,6 @@ lib_id=1
 action_id=603
 applies_to=self
 */
-/// -- Variables
-
     ySpeed = 0;             // -- Vertical speed (air)
 
     ground = 0;             // -- 0 - in air // -- 1 - in ground
@@ -28,6 +26,7 @@ action_id=603
 applies_to=self
 */
 /// -- Main movement
+
 
     // -- Main movement
     var i;
@@ -120,79 +119,6 @@ applies_to=self
 
     // -- Approach to the ySpeed
     y += ySpeed;
-
-
-/*
-    if (ground && scrCollisionMain(x, y + 5, collisionSolid)
-    && !scrCollisionMain(x + pSpeed, y, collisionSolid)
-    && !(scrCollisionMain(x + pSpeed, y + 1, collisionSolid)))
-    {
-        x += pSpeed;
-
-
-        repeat (abs(pSpeed) + 2)
-        {
-            // -- Go down
-            if !(scrCollisionMain(x, y + 1, collisionSolid))
-            {
-                y += 1;
-            }
-        }
-    }
-    else // -- Go up
-    {
-        // -- Check if is meeting a solid
-        if scrCollisionMain(x + pSpeed, y, collisionSolid)
-        {
-            slopeHeight = 0;
-
-            repeat (4 + abs(pSpeed))
-            {
-                // -- Keep adding 1 to slopeHeight until it's value is greater than our slope height or until the statement isn't true
-                if (scrCollisionMain(x + pSpeed, y - slopeHeight, collisionSolid) && slopeHeight <= 5)
-                {
-                    slopeHeight += 1;
-                }
-            }
-
-            // -- Check if we are colliding a wall and not a slope
-            if scrCollisionMain(x + pSpeed, y - slopeHeight, collisionSolid)
-            {
-                repeat (2 + abs(pSpeed))
-                {
-                    // -- Move up with the slope x
-                    if (!scrCollisionMain(x + sign(pSpeed), y, collisionSolid))
-                    {
-                        x += sign(pSpeed);
-                    }
-                }
-                pSpeed = 0;
-            }
-            else // -- Otherwise, we are moving up a slope
-            {
-                y -= slopeHeight;
-            }
-        }
-        // -- Approach to the pSpeed
-        x += pSpeed;
-    }
-
-    repeat (abs(pSpeed) + 1)
-    {
-        // -- Vertical movement
-        if (scrCollisionMain(x, y + ySpeed, parSolid))
-        {
-            // -- Leave the solid
-            if !(scrCollisionMain(x, y + sign(ySpeed), parSolid))
-            {
-                y += sign(ySpeed);
-            }
-            ySpeed = 0;
-        }
-    }
-
-    // -- Approach to the ySpeed
-    y += ySpeed;
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
@@ -244,10 +170,13 @@ applies_to=self
     near = instance_place(x, y, parInteractable);
 
 
-    // -- Unclip
+    // -- Unclip from the object
     if (near != noone)
     {
-        if (place_meeting(x + pSpeed, y, parTerrain) == false)
+
+
+        // -- Check if the object is touching a wall or another object
+        if (place_meeting(near.bbox_left, near.y - 4, parTerrain) == false)
         {
             x -= sign(near.x - x);
             y -= sign(near.y - y);
@@ -325,6 +254,8 @@ applies_to=self
 /// -- Draw
 
 
-    drawX = lerp(drawX, x, 0.15 + abs(pSpeed)/25);
-    drawY = lerp(drawY, y, 0.15 + abs(pSpeed)/25);
+    drawX = lerp(drawX, x, 0.18 + abs(pSpeed)/25);
+    drawY = lerp(drawY, y, 0.18 + abs(pSpeed)/25);
     draw_sprite_ext(sprite_index, 0, drawX, drawY, image_xscale, image_yscale, image_angle, image_blend, image_alpha)
+
+    draw_text(bbox_right, bbox_top, string(scrPhysicsReturnDir(id)));
