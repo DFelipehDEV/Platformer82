@@ -37,7 +37,7 @@ applies_to=self
     {
         x += pSpeed;
 
-        for (i = 0; i < abs(pSpeed) + 2; i += 1)
+        for (i = 0; i < floor(abs(pSpeed)) + 2; i += 1)
         {
             // -- Go down
             if (!(scrCollisionMain(x, y + 1, collisionSolid)))
@@ -56,7 +56,7 @@ applies_to=self
         {
             slopeHeight = 0;
 
-            for (i = 0; i < 4 + abs(pSpeed); i += 1)
+            for (i = 0; i < floor(abs(pSpeed)) + 3; i += 1)
             {
                 // -- Keep adding 1 to slopeHeight until it's value is greater than our slope height or until the statement isn't true
                 var collisionSlope;
@@ -74,7 +74,7 @@ applies_to=self
 
             if (collisionWall)
             {
-                for (i = 0; i < 2 + abs(pSpeed); i += 1)
+                //for (i = 0; i < 2 + abs(pSpeed); i += 1)
                 {
                     // -- Move up with the slope x
                     var collisionX;

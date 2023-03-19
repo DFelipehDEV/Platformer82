@@ -1,17 +1,20 @@
 /// scrMovementSlopes()
+/// -- Main movement
 
 
-    // -- Check if we are not touching a wall
-    if (ground && scrCollisionMain(x, y + 5, collisionSolid)
-    && !scrCollisionMain(x + xSpeed, y, collisionSolid)
-    && !(scrCollisionMain(x + xSpeed, y + 1, collisionSolid)))
+    // -- Main movement
+    var i;
+
+    if (ground && scrCollisionMain(x, y + 5, collisionSolid) && scrCollisionMain(x + xSpeed, y + 5, collisionSolid) &&
+        !scrCollisionMain(x + xSpeed, y, collisionSolid) &&
+        !scrCollisionMain(x + xSpeed, y + 1, collisionSolid))
     {
         x += xSpeed;
 
-        // -- Go down
-        repeat (abs(xSpeed) + 2)
+        for (i = 0; i < floor(abs(xSpeed)) + 1; i += 1)
         {
-            if !(scrCollisionMain(x, y + 1, collisionSolid))
+            // -- Go down
+            if (!(scrCollisionMain(x, y + 1, collisionSolid)))
             {
                 y += 1;
             }
@@ -19,56 +22,68 @@
     }
     else // -- Go up
     {
-        // -- Check if it is a solid
-        if scrCollisionMain(x + xSpeed, y, collisionSolid)
+        // -- Check if is meeting a solid
+        var collisionMain;
+        collisionMain = scrCollisionMain(x + xSpeed, y, collisionSolid);
+
+        if (collisionMain)
         {
             slopeHeight = 0;
 
-            // -- Keep adding 1 to slopeHeight until it's value is greater than our slope height or until the statement isn't true
-            repeat (2 + abs(xSpeed))
+            for (i = 0; i < floor(abs(xSpeed)) + 1; i += 1)
             {
-                if (scrCollisionMain(x + xSpeed, y - slopeHeight, collisionSolid) && slopeHeight <= 5)
+                // -- Keep adding 1 to slopeHeight until it's value is greater than our slope height or until the statement isn't true
+                var collisionSlope;
+                collisionSlope = scrCollisionMain(x + xSpeed, y - slopeHeight, collisionSolid);
+
+                if (collisionSlope && slopeHeight <= 5)
                 {
                     slopeHeight += 1;
                 }
             }
 
-            // -- If even after adding slopeHeight to our y coordinate would result in a collision, that means we are moving into a wall
-            if scrCollisionMain(x + xSpeed, y - slopeHeight, collisionSolid)
+            // -- Check if we are colliding a wall and not a slope
+            var collisionWall;
+            collisionWall = scrCollisionMain(x + xSpeed, y - slopeHeight, collisionSolid);
+
+            if (collisionWall)
             {
-                repeat (2 + abs(xSpeed))
+                //for (i = 0; i < 2 + abs(xSpeed); i += 1)
                 {
                     // -- Move up with the slope x
-                    if (!scrCollisionMain(x + sign(xSpeed), y, collisionSolid))
+                    var collisionX;
+                    collisionX = scrCollisionMain(x + sign(xSpeed), y, collisionSolid);
+
+                    if (!(collisionX))
                     {
                         x += sign(xSpeed);
                     }
                 }
-                switch (terrainCurrent)
-                {
-                    case "SOLID":
-                        xSpeed = 0;
-                    break;
-                }
+                xSpeed = 0;
             }
-
             else // -- Otherwise, we are moving up a slope
             {
                 y -= slopeHeight;
             }
         }
+
         // -- Approach to the xSpeed
         x += xSpeed;
     }
 
-
-    repeat (abs(xSpeed) + 1)
+    for (i = 0; i < abs(xSpeed) + 1; i += 1)
     {
         // -- Vertical movement
-        if (scrCollisionMain(x, y + ySpeed, parSolid))
+        var collisionVertical;
+        collisionVertical = scrCollisionMain(x, y + ySpeed, parSolid);
+
+        if (collisionVertical)
         {
             // -- Leave the solid
-            if !(scrCollisionMain(x, y + sign(ySpeed), parSolid))
+            var collisionLeave;
+            collisionLeave = !(scrCollisionMain(x, y + sign(ySpeed), parSolid));
+
+            if (collisionLeave)
             {
                 y += sign(ySpeed);
             }

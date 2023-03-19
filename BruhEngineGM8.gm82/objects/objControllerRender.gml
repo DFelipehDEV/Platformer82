@@ -13,3 +13,8 @@ applies_to=self
     instance_activate_object(objPlayer);
 
     instance_activate_region(view_xview[0]-64, view_yview[0]-64, (view_wview[0]+64) + 64, (view_hview[0]+64) + 64, 1);
+
+    if (instance_exists(objCamera))
+    {
+        instance_activate_object(objCamera.camTarget);
+    }
