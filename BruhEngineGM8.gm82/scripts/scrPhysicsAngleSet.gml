@@ -1,4 +1,5 @@
-/// scrPhysicsAngleSet(numberofangles, speed)
+/// scrPhysicsAngleSet(NumberOfAngles, Speed)
+
 
     switch (sign(argument1))
     {

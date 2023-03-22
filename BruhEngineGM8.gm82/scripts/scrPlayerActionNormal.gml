@@ -1,7 +1,7 @@
 /// scrPlayerActionNormal()
 
 
-    // -- Animation direction
+    // -- Update animation direction
     if (sign(xSpeed) != 0)
     {
         xDir = sign(xSpeed);
@@ -9,27 +9,21 @@
 
     switch (ground)
     {
-        case 1:
+        case true:
+            // -- Update horizontal movement
             xSpeed = scrMovementHorizontal(input.inputLeft, input.inputRight, xSpeed, 5, 0.06, 0.19, 0.28);
+
             // -- Idle animation
             if (xSpeed == 0)
             {
                 scrAnimationApply("IDLE");
             }
 
-
             // -- Walk animation
-            if (abs(xSpeed) > 0 && abs(xSpeed) < 8)
+            if (abs(xSpeed) > 0)
             {
                 scrAnimationApply("WALK");
-                animSpeed = (round(abs(xSpeed)/1.5)*1.5)/10
-            }
-
-            // -- Run animation
-            if (abs(xSpeed) >= 8)
-            {
-                scrAnimationApply("RUN");
-                animSpeed = (round(abs(xSpeed)/1.5)*1.5)/10
+                animSpeed = max(0.08, (round(abs(xSpeed)/1.5)*1.5)/10);
             }
 
             // -- Jump
@@ -39,20 +33,19 @@
                 {
                     xSpeed = 6*sign(xSpeed);
                 }
-                ySpeed = -5;
+                ySpeed = -6;
                 ground = false;
                 action = actionJump;
-
                 scrAnimationApply("JUMP");
             }
 
             // -- Look up
-            if (input.inputUp == true && xSpeed == 0)
-            {
+            /*
+            if (input.inputUp == true && xSpeed == 0) {
                 action = actionLookup;
                 scrAnimationApply("LOOKUP");
             }
-
+            */
 
             // -- Crouch
             if (input.inputDown == true && xSpeed == 0)
@@ -61,12 +54,12 @@
                 // -- Update collision
                 sprite_index = maskPlayerCrouch;
                 scrAnimationApply("CROUCH");
-
                 y += 3;
             }
         break;
 
-        case 0:
-            ySpeed = scrApproach(ySpeed, 8, 0.23);
+        case false:
+            // -- Apply gravity when not on the ground
+            ySpeed = scrApproach(ySpeed, 8, phyGravDefault);
         break;
     }

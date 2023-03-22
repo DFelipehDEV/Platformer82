@@ -14,9 +14,10 @@
 	+Movement
 		|scrMovementHorizontal
 		|scrMovementSlopes
+	+Physics
+		|scrPhysicsAngleSet
+		|scrPhysicsReturnDir
 	+Misc
 		|scrApproach
 		|scrAnimationSet
 		|scrAnimationApply
-|scrPhysicsAngleSet
-|scrPhysicsReturnDir

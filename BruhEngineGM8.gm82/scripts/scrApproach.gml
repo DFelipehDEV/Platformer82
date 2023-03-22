@@ -1,4 +1,4 @@
-/// scrApproach(start, end, shift);
+/// scrApproach(Start, End, Shift);
  // -- Approach to a value
 
 

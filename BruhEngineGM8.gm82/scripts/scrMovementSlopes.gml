@@ -5,7 +5,8 @@
     // -- Main movement
     var i;
 
-    if (ground && scrCollisionMain(x, y + 5, collisionSolid) && scrCollisionMain(x + xSpeed, y + 5, collisionSolid) &&
+    if (ground && scrCollisionMain(x, y + 5, collisionSolid) &&
+        scrCollisionMain(x + xSpeed, y + 5, collisionSolid) &&
         !scrCollisionMain(x + xSpeed, y, collisionSolid) &&
         !scrCollisionMain(x + xSpeed, y + 1, collisionSolid))
     {

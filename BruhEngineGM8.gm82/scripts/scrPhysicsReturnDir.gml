@@ -1,4 +1,4 @@
-/// scrPhysicsReturnDir(object)
+/// scrPhysicsReturnDir(Object)
 // -- Returns the object's direction
 
 

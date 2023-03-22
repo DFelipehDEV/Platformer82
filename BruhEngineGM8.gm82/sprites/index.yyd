@@ -1,11 +1,11 @@
 sprPlayerIdle
-sprPlayerLookup
+
 sprPlayerCrouch
 sprPlayerWalk
 sprPlayerJump
 sprPlayerFall
-sprPlayerHang
-sprPlayerRun
+
+
 maskPlayerNormal
 maskPlayerCrouch
 sprCollisionMask1
@@ -15,7 +15,7 @@ sprCollisionMask4
 sprCollisionMask5
 sprCollisionMask6
 sprCameraTrigger
-sprStageSonicRoboGigante
+sprRoboSonic
 sprRat
 sprBall
 sprCannon

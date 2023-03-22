@@ -1,24 +1,29 @@
 +Player
-	+Character 1
-		|sprPlayerIdle
-		|sprPlayerLookup
-		|sprPlayerCrouch
-		|sprPlayerWalk
-		|sprPlayerJump
-		|sprPlayerFall
-		|sprPlayerHang
-		|sprPlayerRun
-	|maskPlayerNormal
-	|maskPlayerCrouch
-+Collision masks
+	+Character
+		+Idle
+			|sprPlayerIdle
+		+Crouch
+			|sprPlayerCrouch
+		+Walk
+			|sprPlayerWalk
+		+Jump/fall
+			|sprPlayerJump
+			|sprPlayerFall
+	+Collision
+		|maskPlayerNormal
+		|maskPlayerCrouch
++Solids
 	|sprCollisionMask1
 	|sprCollisionMask2
 	|sprCollisionMask3
 	|sprCollisionMask4
 	|sprCollisionMask5
 	|sprCollisionMask6
-|sprCameraTrigger
-|sprStageSonicRoboGigante
-|sprRat
-|sprBall
-|sprCannon
++Level objects
+	|sprCannon
+	|sprRoboSonic
+	+Physics objects
+		|sprBall
+		|sprRat
++Triggers
+	|sprCameraTrigger

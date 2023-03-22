@@ -1,4 +1,4 @@
-/// scrCollisionMain(x, y, object)
+/// scrCollisionMain(X, Y, Object)
  // -- Check the main sensor
 
 

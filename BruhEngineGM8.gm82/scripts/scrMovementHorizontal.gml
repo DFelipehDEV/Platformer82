@@ -1,4 +1,4 @@
-/// scrMovementHorizontal(inputleft, inputright, xspeed, xspeedmax, accelerate, decelerate, friction)
+/// scrMovementHorizontal(InputLeft, InputRight, XSpeed, XSpeedMax, Accelerate, Decelerate, Friction)
 
 
 

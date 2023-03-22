@@ -1,4 +1,6 @@
 +Main
+	|objPlayer
+	|objCamera
 	+Parents
 		|parActive
 		|parTerrain
@@ -6,6 +8,11 @@
 		|parPlatform
 		|parInteractable
 		|parPhysic
+	+Physics
+		|objCannon
+		|objRat
+		|objBall
+		|objRoboSonic
 	+Controllers
 		|objControllerInput
 		|objControllerHUD
@@ -13,17 +20,12 @@
 		|objControllerAudio
 		|objControllerRoom
 		|objControllerRes
-	+Player
-		|objRoboSonic
-		|objPlayer
-		|objCamera
-	|objRat
-	|objBall
-	|objCannon
-+Collision masks
-	|objCollisionMask1
-	|objCollisionMask2
-	|objCollisionMask3
-	|objCollisionMask4
-	|objCollisionMask5
-	|objCollisionMask6
++Terrain
+	+Main
+		|objCollisionMask1
+		|objCollisionMask2
+		|objCollisionMask3
+		|objCollisionMask4
+		|objCollisionMask5
+		|objCollisionMask6
+	|objPlatformMask1

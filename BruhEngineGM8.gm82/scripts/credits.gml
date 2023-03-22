@@ -1,4 +1,4 @@
 /*
-    Amongus sprites by Super Mario Bros. 110
-    Engine/Framework made by Zazon Filipe
+    Player's sprites from Epic Mickey Power of illusion
+    Project made by Zazon Filipe
 */

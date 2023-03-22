@@ -4,19 +4,23 @@ lib_id=1
 action_id=603
 applies_to=self
 */
+/// -- Variables
+
+    image_speed = 0;
+
+    // -- Speeds
+    pSpeed = 0;             // -- Physical speed
     ySpeed = 0;             // -- Vertical speed (air)
 
-    ground = 0;             // -- 0 - in air // -- 1 - in ground
+    ground = false;         // -- Grounded status
 
-
+    // -- Slopes and collision
     slopeHeight = 0;        // -- Slope height used while going up
     terrainID = 0;          // -- ID of the meeting terrain
-    terrainCurrent = "";    // -- Weather is meeting a solid or a platform
+    terrainCurrent = "";    // -- Type of terrain being encountered (solid or platform)
+    terrainAngle = 0;       // -- Angle of the terrain being encountered
 
-    pSpeed = 0;     // -- Physical speed
-    image_speed = 0
-    terrainAngle = 0;
-
+    // -- Draw coordinates
     drawX = x;
     drawY = y;
 #define Step_0

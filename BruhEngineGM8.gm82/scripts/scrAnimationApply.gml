@@ -1,4 +1,4 @@
-/// scrAnimationApply(animation)
+/// scrAnimationApply(Animation)
 
 
     if (animIndex != argument0)
