@@ -8,7 +8,7 @@ applies_to=self
 
 
     var interact;
-    interact = instance_place(x, y - 2, parInteractable);
+    interact = instance_place(x, y - 12, parInteractable);
     if (interact != noone)
     {
         hspeed += 0.008;

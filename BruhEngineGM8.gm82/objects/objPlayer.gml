@@ -60,15 +60,15 @@ applies_to=self
 /// -- Physics
 
     // -- Ground acceleration, deceleration and friction
-    phyAcc = 0.08;
-    phyDec = 0.19;
-    phyFrc = 0.3;
+    phyAcc = 0.09;
+    phyDec = 0.14;
+    phyFrc = 0.25;
 
     // -- Speeds
     phySpeedTop = 5;
 
     // -- Gravity
-    phyGrv = phyGravDefault;
+    phyGrv = 0.28;
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

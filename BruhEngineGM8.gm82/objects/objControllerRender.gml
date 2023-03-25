@@ -12,8 +12,15 @@ applies_to=self
     instance_activate_object(parActive);
     instance_activate_object(objPlayer);
 
-    // -- Activate instances within the view plus a buffer of 32 pixels
-    instance_activate_region(view_xview[0] - 32, view_yview[0] - 32, view_wview[0] + 64, view_hview[0] + 64, 1);
+    // -- Check if persistentTerrain is true
+    if (persistentTerrain == true)
+    {
+        // -- Activate the terrain all time
+        instance_activate_object(parTerrain);
+    }
+
+    // -- Activate instances within the view plus a buffer of 64 pixels
+    instance_activate_region(view_xview[0] - 64, view_yview[0] - 64, view_wview[0] + 128, view_hview[0] + 128, 1);
 
     // -- Activate the camera's target object if it exists
     if (instance_exists(objCamera)) 
