@@ -9,7 +9,7 @@ applies_to=self
     image_speed = 0;
 
     // -- Speeds
-    pSpeed = 0;             // -- Physical speed
+    xSpeed = 0;             // -- Horizontal speed
     ySpeed = 0;             // -- Vertical speed (air)
 
     ground = false;         // -- Grounded status
@@ -31,17 +31,16 @@ applies_to=self
 */
 /// -- Main movement
 
-
     // -- Main movement
     var i;
 
     if (ground && scrCollisionMain(x, y + 5, collisionSolid) &&
-        !scrCollisionMain(x + pSpeed, y, collisionSolid) &&
-        !scrCollisionMain(x + pSpeed, y + 1, collisionSolid))
+        !scrCollisionMain(x + xSpeed, y, collisionSolid) &&
+        !scrCollisionMain(x + xSpeed, y + 1, collisionSolid))
     {
-        x += pSpeed;
+        x += xSpeed;
 
-        for (i = 0; i < floor(abs(pSpeed)) + 2; i += 1)
+        for (i = 0; i < floor(abs(xSpeed)) + 2; i += 1)
         {
             // -- Go down
             if (!(scrCollisionMain(x, y + 1, collisionSolid)))
@@ -54,19 +53,19 @@ applies_to=self
     {
         // -- Check if is meeting a solid
         var collisionMain;
-        collisionMain = scrCollisionMain(x + pSpeed, y, collisionSolid);
+        collisionMain = scrCollisionMain(x + xSpeed, y, collisionSolid);
 
         if (collisionMain)
         {
             slopeHeight = 0;
 
-            for (i = 0; i < floor(abs(pSpeed)) + 3; i += 1)
+            for (i = 0; i < floor(abs(xSpeed)) + 2; i += 1)
             {
                 // -- Keep adding 1 to slopeHeight until it's value is greater than our slope height or until the statement isn't true
                 var collisionSlope;
-                collisionSlope = scrCollisionMain(x + pSpeed, y - slopeHeight, collisionSolid);
+                collisionSlope = scrCollisionMain(x + xSpeed, y - slopeHeight, collisionSolid);
 
-                if (collisionSlope && slopeHeight <= 5)
+                if (collisionSlope && slopeHeight <= 4)
                 {
                     slopeHeight += 1;
                 }
@@ -74,22 +73,22 @@ applies_to=self
 
             // -- Check if we are colliding a wall and not a slope
             var collisionWall;
-            collisionWall = scrCollisionMain(x + pSpeed, y - slopeHeight, collisionSolid);
+            collisionWall = scrCollisionMain(x + xSpeed, y - slopeHeight, collisionSolid);
 
             if (collisionWall)
             {
-                //for (i = 0; i < 2 + abs(pSpeed); i += 1)
+                //for (i = 0; i < 2 + abs(xSpeed); i += 1)
                 {
                     // -- Move up with the slope x
                     var collisionX;
-                    collisionX = scrCollisionMain(x + sign(pSpeed), y, collisionSolid);
+                    collisionX = scrCollisionMain(x + sign(xSpeed), y, collisionSolid);
 
                     if (!(collisionX))
                     {
-                        x += sign(pSpeed);
+                        x += sign(xSpeed);
                     }
                 }
-                pSpeed = 0;
+                xSpeed = 0;
             }
             else // -- Otherwise, we are moving up a slope
             {
@@ -97,11 +96,11 @@ applies_to=self
             }
         }
 
-        // -- Approach to the pSpeed
-        x += pSpeed;
+        // -- Approach to the xSpeed
+        x += xSpeed;
     }
 
-    for (i = 0; i < abs(pSpeed) + 1; i += 1)
+    for (i = 0; i < abs(ySpeed) + 1; i += 1)
     {
         // -- Vertical movement
         var collisionVertical;
@@ -130,7 +129,6 @@ applies_to=self
 */
 /// -- Vertical movement
 
-
     switch(ground)
     {
         // -- In mid air
@@ -142,9 +140,9 @@ applies_to=self
                 ground = true;
                 /*if (scrCollisionMain(x - 1, y + 4, collisionSolid) || scrCollisionMain(x + 1, y + 4, collisionSolid))
                 {
-                    scrPhysicsAngleSet(32, pSpeed)
+                    scrPhysicsAngleSet(32, xSpeed)
                 }
-                pSpeed -= dsin(terrainAngle) * ySpeed;
+                xSpeed -= dsin(terrainAngle) * ySpeed;
                 */
                 ySpeed = 0;
             }
@@ -161,7 +159,7 @@ applies_to=self
     }
 
 
-    //pSpeed = xprevious - x
+    //xSpeed = xprevious - x
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
@@ -169,23 +167,24 @@ applies_to=self
 */
 /// -- Collision with other objects
 
-
     var near;
     near = instance_place(x, y, parInteractable);
-
 
     // -- Unclip from the object
     if (near != noone)
     {
-
-
-        // -- Check if the object is touching a wall or another object
-        if (place_meeting(near.bbox_left, near.y - 4, parTerrain) == false)
+        if ((place_meeting(bbox_left, y - 16, parTerrain) && scrPhysicsReturnDir(near) <= 0) || (place_meeting(bbox_right, y - 16, parTerrain) && scrPhysicsReturnDir(near) > 0))
         {
+            // -- Don't push if the object is being pushed towards a wall
+            exit;
+        }
+        else
+        {            
+            // -- Check if the object is touching a wall or another object
             x -= sign(near.x - x);
             y -= sign(near.y - y);
-
-            pSpeed -= sign(near.x - x);
+        
+            xSpeed -= sign(near.x - x);
         }
     }
 /*"/*'/**//* YYD ACTION
@@ -196,7 +195,7 @@ applies_to=self
 /// -- Physics
 
     // -- Getting stuck in a wall
-    if (slopeHeight == 6)
+    if (slopeHeight == 5)
     {
         // -- Leave the ground
         if (place_meeting(x, y - 1, parTerrain) || place_meeting(x, y, parTerrain))
@@ -225,30 +224,27 @@ applies_to=self
         }
     }
 
-
     if (ground == true)
     {
-        scrPhysicsAngleSet(32, pSpeed)
+        scrPhysicsAngleSet(32, xSpeed)
     }
-
 
     // -- Gain or loose slope speed
-    if pSpeed < 0
+    if xSpeed < 0
     {
-        if terrainAngle > 180 pSpeed -= 0.082*dsin(terrainAngle);
-        else if terrainAngle < 180 pSpeed -= 0.2*dsin(terrainAngle);
+        if terrainAngle > 180 xSpeed -= 0.07*dsin(terrainAngle);
+        else if terrainAngle < 180 xSpeed -= 0.2*dsin(terrainAngle);
     }
-    else if pSpeed > 0
+    else if xSpeed > 0
     {
-        if terrainAngle < 180 pSpeed -= 0.082*dsin(terrainAngle);
-        else if terrainAngle > 180 pSpeed -= 0.2*dsin(terrainAngle);
+        if terrainAngle < 180 xSpeed -= 0.07*dsin(terrainAngle);
+        else if terrainAngle > 180 xSpeed -= 0.2*dsin(terrainAngle);
     }
-
 
     // -- Loose speed
-    pSpeed -= min(abs(pSpeed), 0.05) * sign(pSpeed);
+    xSpeed -= min(abs(xSpeed), 0.04) * sign(xSpeed);
 
-    image_angle += pSpeed*2;
+    image_angle += xSpeed*2;
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -257,9 +253,7 @@ applies_to=self
 */
 /// -- Draw
 
+    drawX = lerp(drawX, x, 0.18 + abs(xSpeed)/25);
+    drawY = lerp(drawY, y, 0.18 + abs(xSpeed)/25);
 
-    drawX = lerp(drawX, x, 0.18 + abs(pSpeed)/25);
-    drawY = lerp(drawY, y, 0.18 + abs(pSpeed)/25);
     draw_sprite_ext(sprite_index, 0, drawX, drawY, image_xscale, image_yscale, image_angle, image_blend, image_alpha)
-
-    draw_text(bbox_right, bbox_top, string(scrPhysicsReturnDir(id)));

@@ -8,11 +8,7 @@
 		|parPlatform
 		|parInteractable
 		|parPhysic
-	+Physics
-		|objCannon
-		|objRat
-		|objBall
-		|objRoboSonic
+		|parDummy
 	+Controllers
 		|objControllerInput
 		|objControllerHUD
@@ -20,6 +16,16 @@
 		|objControllerAudio
 		|objControllerRoom
 		|objControllerRes
+	+Level objects
+		+Physics
+			|objCannon
+			|objRat
+			|objBall
+			|objRoboSonic
+		+Collect
+			|objTicket
+			+OBSOLETE
+				|objTicketCollected
 +Terrain
 	+Main
 		|objCollisionMask1
@@ -29,3 +35,4 @@
 		|objCollisionMask5
 		|objCollisionMask6
 	|objPlatformMask1
+|objBGTest

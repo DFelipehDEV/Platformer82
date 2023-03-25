@@ -16,11 +16,20 @@ applies_to=self
 /// -- Room control
 
 
-    global.roomTimer += 1;
+    if (fps > 1)
+    {
+        global.roomTimer += FRAMERATE / fps;
+    }
+
 
     if (keyboard_check_pressed(ord("R")))
     {
         room_restart();
+    }
+
+    if (keyboard_check_pressed(ord("P")))
+    {
+        room_speed += 5;
     }
 #define Other_5
 /*"/*'/**//* YYD ACTION

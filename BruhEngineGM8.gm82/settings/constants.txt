@@ -1,3 +1,4 @@
+FRAMERATE=60
 input=objControllerInput
 collisionSolid=0
 collisionPlatform=1

@@ -52,6 +52,23 @@ applies_to=self
     animReset = false;      // -- True if you want it to return to the first frame when the animation changes
 
     animAngle = 0;
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+/// -- Physics
+
+    // -- Ground acceleration, deceleration and friction
+    phyAcc = 0.08;
+    phyDec = 0.19;
+    phyFrc = 0.3;
+
+    // -- Speeds
+    phySpeedTop = 5;
+
+    // -- Gravity
+    phyGrv = phyGravDefault;
 #define Step_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -186,15 +203,31 @@ applies_to=self
     if (place_meeting(x + xSpeed, y, physicalobj))
     {
         // -- Check if the object is touching a wall or another object
-        if place_meeting(physicalobj.x - 16, physicalobj.y - 3, parTerrain) && scrPhysicsReturnDir(physicalobj) <= 0
-        || place_meeting(physicalobj.x + 16, physicalobj.y - 3, parTerrain) && scrPhysicsReturnDir(physicalobj) == 1
+        if place_meeting(physicalobj.x - 24, physicalobj.y - 3, parTerrain) //&& scrPhysicsReturnDir(physicalobj) <= 0
+        || place_meeting(physicalobj.x + 24, physicalobj.y - 3, parTerrain) //&& scrPhysicsReturnDir(physicalobj) == 1
         {
-            //xSpeed = 0;
+            exit;
         }
         else
         {
-            physicalobj.pSpeed = (x - xprevious);
+            physicalobj.xSpeed = (x - xprevious);
             physicalobj.image_angle += x - xprevious;
+        }
+    }
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+/// -- Interacting with level objects
+
+    if (collision_check_fast(objTicket))
+    {
+        soundPlay(sndCollect)
+        with (instance_nearest(x, y, objTicket))
+        {
+            instance_create(x, y, objTicketCollected);
+            instance_destroy();
         }
     }
 #define Draw_0
@@ -205,8 +238,16 @@ applies_to=self
 */
 /// -- Draw
 
-
     if global.debug
-    draw_sprite(sprite_index, image_index, floor(x), floor(y));
+    {
+        draw_sprite(sprite_index, image_index, floor(x), floor(y));
+
+        if (instance_exists(parPhysic))
+        {
+            var near2;
+            near2 = instance_nearest(x, y, parPhysic);
+            draw_sprite(sprite_index, image_index, floor(near2.x + 24*sign(xSpeed)), floor(near2.y - 3));
+        }
+    }
     else
     draw_sprite_ext(animSprite, floor(min(animFrame, animFrameEnd)), floor(x), floor(y), xDir, image_yscale, 0, image_blend, image_alpha);

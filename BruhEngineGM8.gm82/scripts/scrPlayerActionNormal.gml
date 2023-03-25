@@ -11,7 +11,7 @@
     {
         case true:
             // -- Update horizontal movement
-            xSpeed = scrMovementHorizontal(input.inputLeft, input.inputRight, xSpeed, 5, 0.06, 0.19, 0.28);
+            xSpeed = scrMovementHorizontal(input.inputLeft, input.inputRight, xSpeed, phySpeedTop, phyAcc, phyDec, phyFrc);
 
             // -- Idle animation
             if (xSpeed == 0)
@@ -37,15 +37,8 @@
                 ground = false;
                 action = actionJump;
                 scrAnimationApply("JUMP");
+                soundPlay(sndJump)
             }
-
-            // -- Look up
-            /*
-            if (input.inputUp == true && xSpeed == 0) {
-                action = actionLookup;
-                scrAnimationApply("LOOKUP");
-            }
-            */
 
             // -- Crouch
             if (input.inputDown == true && xSpeed == 0)
@@ -54,12 +47,12 @@
                 // -- Update collision
                 sprite_index = maskPlayerCrouch;
                 scrAnimationApply("CROUCH");
-                y += 3;
+                y += 4;
             }
         break;
 
         case false:
             // -- Apply gravity when not on the ground
-            ySpeed = scrApproach(ySpeed, 8, phyGravDefault);
+            ySpeed = scrApproach(ySpeed, 8, phyGrv);
         break;
     }

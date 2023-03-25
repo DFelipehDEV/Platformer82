@@ -6,6 +6,7 @@
     instance_create(0, 0, objControllerRoom);
     instance_create(0, 0, objControllerRes);
 
+    global.sfxVolume = 1;
     global.debug = -1;
 
     room_goto_next();

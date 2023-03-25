@@ -25,5 +25,9 @@
 	+Physics objects
 		|sprBall
 		|sprRat
+	|sprTicket
 +Triggers
 	|sprCameraTrigger
++VFX
+	|sprVFXSparkle1
+	|sprVFXSparkle2

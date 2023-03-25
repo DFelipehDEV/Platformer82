@@ -23,4 +23,4 @@ applies_to=self
 */
 /// -- Draw object
 
-    draw_sprite(sprite_index, image_index, x, y)
+    draw_sprite(sprite_index, image_index, floor(x), floor(y))

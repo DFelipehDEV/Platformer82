@@ -7,29 +7,34 @@
         xDir = sign(xSpeed);
     }
 
-    xSpeed = scrMovementHorizontal(input.inputLeft, input.inputRight, xSpeed, 5, 0.04, 0.12, 0.13);
+    // -- Horizontal movement
+    xSpeed = scrMovementHorizontal(input.inputLeft, input.inputRight, xSpeed, phySpeedTop, phyAcc/2, phyDec/2, phyFrc/2);
 
     switch (ground)
     {
         case 1:
+            // -- Reset state when touching the ground
             action = actionNormal;
         break;
 
 
         case 0:
-            // -- Gravity
-            ySpeed = scrApproach(ySpeed, 8, phyGravDefault);
+            // -- Apply gravity
+            ySpeed = scrApproach(ySpeed, 8, phyGrv);
             switch (sign(ySpeed))
             {
                 case 1:
+                    // -- Set falling animation in case the YSpeed > 0
                     scrAnimationApply("FALL");
                 break;
 
 
                 case -1:
+                    // -- Check if its holding the jump input
                     if (input.inputAction == false)
                     {
-                        ySpeed = -0.05;
+                        // -- Cancel the jump
+                        ySpeed = -phyGravDefault;
                     }
                 break;
             }

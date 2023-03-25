@@ -24,3 +24,7 @@ objBall
 parPhysic
 objCannon
 objPlatformMask1
+objTicket
+objTicketCollected
+parDummy
+objBGTest

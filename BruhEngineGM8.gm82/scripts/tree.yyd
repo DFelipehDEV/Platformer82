@@ -1,5 +1,7 @@
 |scrInit
 |credits
++Sound
+	|soundPlay
 +Player
 	+Actions
 		|scrPlayerActionNormal
@@ -21,3 +23,6 @@
 		|scrApproach
 		|scrAnimationSet
 		|scrAnimationApply
+		|scrEasings
+		|scrDummyCreate
+		|scrRoundNearMultiple
