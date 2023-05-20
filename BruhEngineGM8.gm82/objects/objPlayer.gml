@@ -15,7 +15,7 @@ applies_to=self
     // -- Terrain
     slopeHeight = 0;            // -- Slope height used while going up
     terrainID = 0;              // -- ID of the meeting terrain
-    terrainCurrent = "";        // -- Whether the player is meeting a solid or a platform
+    terrainCurrent = 0;         // -- Whether the player is meeting a solid or a platform
     terrainAngle = 0;           // -- Angle of terrain
 
     // -- States
@@ -114,10 +114,25 @@ applies_to=self
     if (ground == false)
     {
         // -- Check if landing on solid ground
-        if (scrCollisionMain(x, y + 2, collisionSolid) && ySpeed >= 0)
+        if (scrCollisionMain(x, y + 2, collisionSolid)  && ySpeed >= 0)
         {
-            ground = true;
-            ySpeed = 0;
+            switch terrainCurrent
+            {
+                case terrainSolid:
+                    ground = true;
+                    ySpeed = 0;
+                break;
+
+                case terrainPlatform:
+                    // -- Check if we are above the platform
+                    if (y < terrainID.y - 12 + ySpeed)
+                    {
+                        y = terrainID.y - 16;
+                        ground = true;
+                        ySpeed = 0;
+                    }
+                break;
+            }
         }
     }
     else
@@ -129,10 +144,10 @@ applies_to=self
             terrainAngle = 0;
         }
         // -- Check if inside a platform
-        if (scrCollisionMain(x, y, parPlatform) && ySpeed >= 0)
+        /*if (scrCollisionMain(x, y + 2, parPlatform) && ySpeed >= 0)
         {
             y = terrainID.y - 16;
-        }
+        }*/
     }
 /*"/*'/**//* YYD ACTION
 lib_id=1

@@ -1,4 +1,4 @@
 /*
-    Player's sprites from Epic Mickey Power of illusion
-    Project made by DFelipeh
+Player sprites from Epic Mickey Power of Illusion by Disney
+Project made by DFelipeh
 */

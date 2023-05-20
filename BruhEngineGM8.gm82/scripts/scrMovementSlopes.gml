@@ -1,7 +1,6 @@
 /// scrMovementSlopes()
 /// -- Main movement
 
-
     // -- Main movement
     var i;
 
@@ -60,7 +59,10 @@
                         x += sign(xSpeed);
                     }
                 }
-                xSpeed = 0;
+                if (terrainCurrent == terrainSolid)
+                {
+                    xSpeed = 0;
+                }
             }
             else // -- Otherwise, we are moving up a slope
             {

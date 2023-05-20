@@ -17,7 +17,7 @@ applies_to=self
     // -- Slopes and collision
     slopeHeight = 0;        // -- Slope height used while going up
     terrainID = 0;          // -- ID of the meeting terrain
-    terrainCurrent = "";    // -- Type of terrain being encountered (solid or platform)
+    terrainCurrent = 0;     // -- Type of terrain being encountered (solid or platform)
     terrainAngle = 0;       // -- Angle of the terrain being encountered
 
     // -- Draw coordinates
@@ -134,17 +134,26 @@ applies_to=self
         // -- In mid air
         case 0:
             ySpeed = scrApproach(ySpeed, 8, 0.23);
-            // -- Land
-            if (scrCollisionMain(x, y + 4, collisionSolid) && ySpeed >= 0)
+            // -- Check if landing on solid ground
+            if (scrCollisionMain(x, y + 2, collisionSolid)  && ySpeed >= 0)
             {
-                ground = true;
-                /*if (scrCollisionMain(x - 1, y + 4, collisionSolid) || scrCollisionMain(x + 1, y + 4, collisionSolid))
+                switch terrainCurrent
                 {
-                    scrPhysicsAngleSet(32, xSpeed)
+                    case terrainSolid:
+                        ground = true;
+                        ySpeed = 0;
+                    break;
+
+                    case terrainPlatform:
+                        // -- Check if we are above the platform
+                        if (y < terrainID.y - 12 + ySpeed)
+                        {
+                            y = terrainID.y - 16;
+                            ground = true;
+                            ySpeed = 0;
+                        }
+                    break;
                 }
-                xSpeed -= dsin(terrainAngle) * ySpeed;
-                */
-                ySpeed = 0;
             }
         break;
 
@@ -157,9 +166,6 @@ applies_to=self
             }
         break;
     }
-
-
-    //xSpeed = xprevious - x
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
@@ -202,7 +208,6 @@ applies_to=self
         {
             y -= 1;
         }
-
 
         if (place_meeting(x - sign(xprevious - x), y - sign(yprevious - y), parTerrain))
         {

@@ -1,7 +1,5 @@
 /// scrAnimationSet(Sprite, frame start, frame end, frame loop, speed, frame reset, frame repeat)
 
-
-
     animSprite         =   argument0;
     animFrameStart     =   argument1;
 
@@ -13,7 +11,6 @@
     {
         animFrameEnd    = argument2;
     }
-
 
     if (argument3 == -1)
     {

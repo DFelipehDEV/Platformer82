@@ -18,3 +18,5 @@ inputMStart=7
 screenWidth=426
 screenHeight=240
 phyGravDefault=0.26
+terrainSolid=1
+terrainPlatform=2
