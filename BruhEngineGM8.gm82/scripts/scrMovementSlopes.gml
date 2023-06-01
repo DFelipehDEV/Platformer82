@@ -30,7 +30,7 @@
             slopeHeight = 0;
 
             var collisionSlope;
-            for (i = 0; i < spdFloor + 2; i += 1)
+            for (i = 0; i < spdFloor + 3; i += 1)
             {
                 // -- Keep adding 1 to slopeHeight until it's value is greater than our slope height or until the statement isn't true
                 collisionSlope = scrCollisionMain(x + xSpeed, y - slopeHeight, collisionSolid);

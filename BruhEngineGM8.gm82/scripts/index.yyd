@@ -6,7 +6,7 @@ scrPlayerActionCrouch
 scrPlayer1Animations
 scrCollisionMain
 scrMovementHorizontal
-scrMovementSlopes
+
 scrApproach
 scrAnimationSet
 scrAnimationApply

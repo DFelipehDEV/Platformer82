@@ -1,6 +1,5 @@
 /// scrPhysicsAngleSet(NumberOfAngles, Speed)
 
-
     switch (sign(argument1))
     {
         case 0:

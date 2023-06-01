@@ -1,16 +1,15 @@
 /// scrAnimationApply(Animation)
 
-
     if (animIndex != argument0)
     {
-        // Keep the last animation in track
+        // -- Keep the last animation in track
         animPrevious = animIndex;
         animIndex = argument0;
 
-        // Update animation
+        // -- Update animation
         scrPlayer1Animations();
 
-        // Reset frame
+        // -- Reset frame
         if (animReset == true)
         {
             animFrame = animFrameStart;

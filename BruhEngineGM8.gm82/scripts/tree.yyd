@@ -15,7 +15,6 @@
 		|scrCollisionMain
 	+Movement
 		|scrMovementHorizontal
-		|scrMovementSlopes
 	+Physics
 		|scrPhysicsAngleSet
 		|scrPhysicsReturnDir

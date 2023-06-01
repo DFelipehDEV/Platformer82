@@ -1,7 +1,6 @@
 /// scrEasings(time, start, change, duration, ease)
  // -- Easings
 
-
     switch (argument4)
     {
         // -- Ease in back
