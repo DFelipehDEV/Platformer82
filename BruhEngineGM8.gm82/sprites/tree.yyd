@@ -22,10 +22,10 @@
 +Level objects
 	|sprCannon
 	|sprRoboSonic
+	|sprTicket
 	+Physics objects
 		|sprBall
 		|sprRat
-	|sprTicket
 +Triggers
 	|sprCameraTrigger
 +VFX

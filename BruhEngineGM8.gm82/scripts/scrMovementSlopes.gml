@@ -4,20 +4,19 @@
     // -- Main movement
     var i;
 
-    if (ground && scrCollisionMain(x, y + 5, collisionSolid) &&
-        scrCollisionMain(x + xSpeed, y + 5, collisionSolid) &&
+    var spdFloor;
+    spdFloor = floor(abs(xSpeed));
+    if (ground && scrCollisionMain(x, y + slopeMax, collisionSolid) &&
+        scrCollisionMain(x + xSpeed, y + slopeMax, collisionSolid) &&
         !scrCollisionMain(x + xSpeed, y, collisionSolid) &&
         !scrCollisionMain(x + xSpeed, y + 1, collisionSolid))
     {
         x += xSpeed;
 
-        for (i = 0; i < floor(abs(xSpeed)) + 1; i += 1)
+        // -- Go down
+        while (!(scrCollisionMain(x, y + 1, collisionSolid)))
         {
-            // -- Go down
-            if (!(scrCollisionMain(x, y + 1, collisionSolid)))
-            {
-                y += 1;
-            }
+            y += 1;
         }
     }
     else // -- Go up
@@ -30,13 +29,13 @@
         {
             slopeHeight = 0;
 
-            for (i = 0; i < floor(abs(xSpeed)) + 1; i += 1)
+            var collisionSlope;
+            for (i = 0; i < spdFloor + 2; i += 1)
             {
                 // -- Keep adding 1 to slopeHeight until it's value is greater than our slope height or until the statement isn't true
-                var collisionSlope;
                 collisionSlope = scrCollisionMain(x + xSpeed, y - slopeHeight, collisionSolid);
 
-                if (collisionSlope && slopeHeight <= 5)
+                if (collisionSlope && slopeHeight <= slopeMax)
                 {
                     slopeHeight += 1;
                 }
@@ -48,18 +47,15 @@
 
             if (collisionWall)
             {
-                //for (i = 0; i < 2 + abs(xSpeed); i += 1)
-                {
-                    // -- Move up with the slope x
-                    var collisionX;
-                    collisionX = scrCollisionMain(x + sign(xSpeed), y, collisionSolid);
+                // -- Move up with the slope x
+                var collisionX;
+                collisionX = scrCollisionMain(x + sign(xSpeed), y, collisionSolid);
 
-                    if (!(collisionX))
-                    {
-                        x += sign(xSpeed);
-                    }
+                if (!(collisionX))
+                {
+                    x += sign(xSpeed);
                 }
-                if (terrainCurrent == terrainSolid)
+                if (terrainCurrent != terrainPlatform)
                 {
                     xSpeed = 0;
                 }
@@ -74,16 +70,15 @@
         x += xSpeed;
     }
 
-    for (i = 0; i < abs(xSpeed) + 1; i += 1)
+    var collisionVertical, collisionLeave;
+    for (i = 0; i < spdFloor + 1; i += 1)
     {
         // -- Vertical movement
-        var collisionVertical;
         collisionVertical = scrCollisionMain(x, y + ySpeed, parSolid);
 
         if (collisionVertical)
         {
             // -- Leave the solid
-            var collisionLeave;
             collisionLeave = !(scrCollisionMain(x, y + sign(ySpeed), parSolid));
 
             if (collisionLeave)

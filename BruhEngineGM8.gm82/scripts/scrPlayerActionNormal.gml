@@ -1,6 +1,5 @@
 /// scrPlayerActionNormal()
 
-
     // -- Update animation direction
     if (sign(xSpeed) != 0)
     {
@@ -53,6 +52,6 @@
 
         case false:
             // -- Apply gravity when not on the ground
-            ySpeed = scrApproach(ySpeed, 8, phyGrv);
+            ySpeed = scrApproach(ySpeed, 11, phyGrv);
         break;
     }

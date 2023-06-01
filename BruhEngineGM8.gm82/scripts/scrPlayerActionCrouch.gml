@@ -1,11 +1,9 @@
 /// scrPlayerActionCrouch()
 
-
     // -- Check if its not holding the down input
     if (input.inputDown == false)
     {
         animFrame = max(animFrame - 0.5, animFrameStart);
-
 
         if (floor(animFrame) == 0)
         {

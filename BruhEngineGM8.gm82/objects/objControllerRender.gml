@@ -11,6 +11,7 @@ applies_to=self
     instance_deactivate_all(1);
     instance_activate_object(parActive);
     instance_activate_object(objPlayer);
+    instance_activate_object(gm82core_object);
 
     // -- Check if persistentTerrain is true
     if (persistentTerrain == true)

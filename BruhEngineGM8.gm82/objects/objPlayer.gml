@@ -14,6 +14,7 @@ applies_to=self
 
     // -- Terrain
     slopeHeight = 0;            // -- Slope height used while going up
+    slopeMax = 6;               // -- Max slope height the player can move
     terrainID = 0;              // -- ID of the meeting terrain
     terrainCurrent = 0;         // -- Whether the player is meeting a solid or a platform
     terrainAngle = 0;           // -- Angle of terrain
@@ -114,7 +115,7 @@ applies_to=self
     if (ground == false)
     {
         // -- Check if landing on solid ground
-        if (scrCollisionMain(x, y + 2, collisionSolid)  && ySpeed >= 0)
+        if (scrCollisionMain(x, y + 2, collisionSolid) && ySpeed >= 0)
         {
             switch terrainCurrent
             {
@@ -143,11 +144,6 @@ applies_to=self
             ground = false;
             terrainAngle = 0;
         }
-        // -- Check if inside a platform
-        /*if (scrCollisionMain(x, y + 2, parPlatform) && ySpeed >= 0)
-        {
-            y = terrainID.y - 16;
-        }*/
     }
 /*"/*'/**//* YYD ACTION
 lib_id=1

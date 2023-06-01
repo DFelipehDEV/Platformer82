@@ -1,6 +1,5 @@
 /// scrPlayerActionJump()
 
-
     // -- Animation direction
     if (sign(xSpeed) != 0)
     {
@@ -17,10 +16,9 @@
             action = actionNormal;
         break;
 
-
         case 0:
             // -- Apply gravity
-            ySpeed = scrApproach(ySpeed, 8, phyGrv);
+            ySpeed = scrApproach(ySpeed, 11, phyGrv);
             switch (sign(ySpeed))
             {
                 case 1:
@@ -34,7 +32,7 @@
                     if (input.inputAction == false)
                     {
                         // -- Cancel the jump
-                        ySpeed = -phyGravDefault;
+                        ySpeed = -phyGrv;
                     }
                 break;
             }
