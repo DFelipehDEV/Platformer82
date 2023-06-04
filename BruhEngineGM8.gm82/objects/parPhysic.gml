@@ -34,13 +34,15 @@ applies_to=self
     // -- Main movement
     var i;
 
+    var spdFloor;
+    spdFloor = floor(abs(xSpeed));
     if (ground && scrCollisionMain(x, y + 5, collisionSolid) &&
         !scrCollisionMain(x + xSpeed, y, collisionSolid) &&
         !scrCollisionMain(x + xSpeed, y + 1, collisionSolid))
     {
         x += xSpeed;
 
-        for (i = 0; i < floor(abs(xSpeed)) + 2; i += 1)
+        for (i = 0; i < spdFloor + 2; i += 1)
         {
             // -- Go down
             if (!(scrCollisionMain(x, y + 1, collisionSolid)))
@@ -58,11 +60,10 @@ applies_to=self
         if (collisionMain)
         {
             slopeHeight = 0;
-
-            for (i = 0; i < floor(abs(xSpeed)) + 2; i += 1)
+            var collisionSlope;
+            for (i = 0; i < spdFloor + 2; i += 1)
             {
                 // -- Keep adding 1 to slopeHeight until it's value is greater than our slope height or until the statement isn't true
-                var collisionSlope;
                 collisionSlope = scrCollisionMain(x + xSpeed, y - slopeHeight, collisionSolid);
 
                 if (collisionSlope && slopeHeight <= 4)
@@ -77,16 +78,13 @@ applies_to=self
 
             if (collisionWall)
             {
-                //for (i = 0; i < 2 + abs(xSpeed); i += 1)
-                {
-                    // -- Move up with the slope x
-                    var collisionX;
-                    collisionX = scrCollisionMain(x + sign(xSpeed), y, collisionSolid);
+                // -- Move up with the slope x
+                var collisionX;
+                collisionX = scrCollisionMain(x + sign(xSpeed), y, collisionSolid);
 
-                    if (!(collisionX))
-                    {
-                        x += sign(xSpeed);
-                    }
+                if (!(collisionX))
+                {
+                    x += sign(xSpeed);
                 }
                 xSpeed = 0;
             }
@@ -100,23 +98,25 @@ applies_to=self
         x += xSpeed;
     }
 
-    for (i = 0; i < abs(ySpeed) + 1; i += 1)
+    if (ground == false)
     {
-        // -- Vertical movement
-        var collisionVertical;
-        collisionVertical = scrCollisionMain(x, y + ySpeed, parSolid);
-
-        if (collisionVertical)
+        var collisionVertical, collisionLeave;
+        for (i = 0; i < abs(ySpeed) + 1; i += 1)
         {
-            // -- Leave the solid
-            var collisionLeave;
-            collisionLeave = !(scrCollisionMain(x, y + sign(ySpeed), parSolid));
+            // -- Vertical movement
+            collisionVertical = scrCollisionMain(x, y + ySpeed, parSolid);
 
-            if (collisionLeave)
+            if (collisionVertical)
             {
-                y += sign(ySpeed);
+                // -- Leave the solid
+                collisionLeave = !(scrCollisionMain(x, y + sign(ySpeed), parSolid));
+
+                if (collisionLeave)
+                {
+                    y += sign(ySpeed);
+                }
+                ySpeed = 0;
             }
-            ySpeed = 0;
         }
     }
 
@@ -129,42 +129,40 @@ applies_to=self
 */
 /// -- Vertical movement
 
-    switch(ground)
+    // -- Vertical movement
+    if (ground == false)
     {
-        // -- In mid air
-        case 0:
-            ySpeed = scrApproach(ySpeed, 8, 0.23);
-            // -- Check if landing on solid ground
-            if (scrCollisionMain(x, y + 2, collisionSolid)  && ySpeed >= 0)
+        ySpeed = scrApproach(ySpeed, 8, 0.23);
+        // -- Check if landing on solid ground
+        if (scrCollisionMain(x, y + 2, collisionSolid) && ySpeed >= 0)
+        {
+            switch terrainCurrent
             {
-                switch terrainCurrent
-                {
-                    case terrainSolid:
+                case terrainSolid:
+                    ground = true;
+                    ySpeed = 0;
+                break;
+
+                case terrainPlatform:
+                    // -- Check if we are above the platform
+                    if (y < terrainID.y - 12 + ySpeed)
+                    {
+                        y = terrainID.y - 16;
                         ground = true;
                         ySpeed = 0;
-                    break;
-
-                    case terrainPlatform:
-                        // -- Check if we are above the platform
-                        if (y < terrainID.y - 12 + ySpeed)
-                        {
-                            y = terrainID.y - 16;
-                            ground = true;
-                            ySpeed = 0;
-                        }
-                    break;
-                }
+                    }
+                break;
             }
-        break;
-
-        // -- In ground
-        case 1:
-            // -- Leave the ground
-            if (!scrCollisionMain(x, y + 4, collisionSolid))
-            {
-                ground = false;
-            }
-        break;
+        }
+    }
+    else
+    {
+        // -- Check if leaving the ground
+        if (!scrCollisionMain(x, y + 5, collisionSolid))
+        {
+            ground = false;
+            terrainAngle = 0;
+        }
     }
 /*"/*'/**//* YYD ACTION
 lib_id=1
