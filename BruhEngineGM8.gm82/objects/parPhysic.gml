@@ -19,6 +19,8 @@ applies_to=self
     terrainID = 0;          // -- ID of the meeting terrain
     terrainCurrent = 0;     // -- Type of terrain being encountered (solid or platform)
     terrainAngle = 0;       // -- Angle of the terrain being encountered
+    solidPlace = 0;
+    platformPlace = 0;
 
     // -- Draw coordinates
     drawX = x;

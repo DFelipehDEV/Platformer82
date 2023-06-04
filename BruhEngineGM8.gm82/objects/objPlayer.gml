@@ -18,6 +18,8 @@ applies_to=self
     terrainID = 0;              // -- ID of the meeting terrain
     terrainCurrent = 0;         // -- Whether the player is meeting a solid or a platform
     terrainAngle = 0;           // -- Angle of terrain
+    solidPlace = 0;
+    platformPlace = 0;
 
     // -- States
     action = actionNormal;      // -- Current player state
