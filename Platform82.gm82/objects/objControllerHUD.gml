@@ -11,7 +11,8 @@ applies_to=self
     draw_text(view_xview[0] + 16, view_yview[0] + 16, string(fps))
     if (global.debug == -1) exit;
     draw_sprite_ext(sprCameraTrigger, 0, view_xview[0] + 248, view_yview[0] + 155, 179, 85, 0, c_black, 1);
-
+    draw_text(view_xview[0] + 32, view_yview[0] + 32, string(global.idDelta));
+    draw_text(view_xview[0] + 32, view_yview[0] + 48, string(delta_time*1000));
     if (instance_exists(objPlayer))
     {
         draw_text(view_xview[0] + 318, view_yview[0] + 157, string(objPlayer.x))

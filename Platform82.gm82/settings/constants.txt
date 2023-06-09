@@ -1,4 +1,4 @@
-FRAMERATE=60
+FRAMERATE=165
 persistentTerrain=true
 input=objControllerInput
 collisionSolid=0

@@ -90,7 +90,7 @@ applies_to=self
         !scrCollisionMain(x + xSpeed, y, collisionSolid) &&
         !scrCollisionMain(x + xSpeed, y + 1, collisionSolid))
     {
-        x += xSpeed;
+        x += xSpeed * global.idDelta;
 
         // -- Go down
         while (!(scrCollisionMain(x, y + 1, collisionSolid)))
@@ -146,7 +146,7 @@ applies_to=self
         }
 
         // -- Approach to the xSpeed
-        x += xSpeed;
+        x += xSpeed * global.idDelta;
     }
 
     var collisionVertical, collisionLeave;
@@ -169,7 +169,7 @@ applies_to=self
     }
 
     // -- Approach to the ySpeed
-    y += ySpeed;
+    y += ySpeed * global.idDelta;
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
@@ -281,7 +281,7 @@ applies_to=self
     if (animFinished == false && animSpeed != 0)
     {
         // -- Change the frame depending on the animation speed
-        animFrame += animSpeed;
+        animFrame += animSpeed*global.idDelta;
 
         if (floor(animFrame) > animFrameEnd)
         {

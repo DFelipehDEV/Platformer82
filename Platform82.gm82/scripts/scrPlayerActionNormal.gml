@@ -10,7 +10,7 @@
     {
         case true:
             // -- Update horizontal movement
-            xSpeed = scrMovementHorizontal(input.inputLeft, input.inputRight, xSpeed, phySpeedTop, phyAcc, phyDec, phyFrc);
+            xSpeed = scrMovementHorizontal(input.inputLeft, input.inputRight, xSpeed, phySpeedTop, phyAcc*global.idDelta, phyDec*global.idDelta, phyFrc*global.idDelta);
 
             // -- Idle animation
             if (xSpeed == 0)
@@ -52,6 +52,6 @@
 
         case false:
             // -- Apply gravity when not on the ground
-            ySpeed = scrApproach(ySpeed, 11, phyGrv);
+            ySpeed = scrApproach(ySpeed, 11, phyGrv*global.idDelta);
         break;
     }

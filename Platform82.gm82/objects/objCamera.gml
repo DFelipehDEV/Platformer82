@@ -23,8 +23,8 @@ applies_to=self
     camLag = max(camLag - 1, 0)
     if (camLag == 0)
     {
-        x = floor(lerp(x, camTarget.x + camXShift, 0.2));
-        y = floor(lerp(y, camTarget.y, 0.2));
+        x = floor(lerp(x, camTarget.x + camXShift, 0.2*global.idDelta));
+        y = floor(lerp(y, camTarget.y, 0.2*global.idDelta));
 
-        camXShift = scrApproach(camXShift, round(-(round(camTarget.xprevious - camTarget.x)*2)/2)*16, 1);
+        camXShift = scrApproach(camXShift, (round(-(round(camTarget.xprevious - camTarget.x)*2)/2)*16), 1);
     }

@@ -8,5 +8,6 @@
 
     global.sfxVolume = 1;
     global.debug = -1;
+    global.idDelta = 0;
 
     room_goto_next();

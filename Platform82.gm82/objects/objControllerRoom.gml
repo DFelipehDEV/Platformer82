@@ -15,10 +15,10 @@ applies_to=self
 */
 /// -- Room control
 
-
     if (fps > 1)
     {
-        global.roomTimer += FRAMERATE / fps;
+        global.idDelta = ((delta_time*1000)/1000000) / (1/60);
+        global.roomTimer += 1 * global.idDelta;
     }
 
 
@@ -29,7 +29,7 @@ applies_to=self
 
     if (keyboard_check_pressed(ord("P")))
     {
-        room_speed += 5;
+        room_speed -= 10;
     }
 #define Other_5
 /*"/*'/**//* YYD ACTION

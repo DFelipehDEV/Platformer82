@@ -42,7 +42,7 @@ applies_to=self
         !scrCollisionMain(x + xSpeed, y, collisionSolid) &&
         !scrCollisionMain(x + xSpeed, y + 1, collisionSolid))
     {
-        x += xSpeed;
+        x += xSpeed * global.idDelta;
 
         for (i = 0; i < spdFloor + 2; i += 1)
         {

@@ -18,7 +18,7 @@
 
         case 0:
             // -- Apply gravity
-            ySpeed = scrApproach(ySpeed, 11, phyGrv);
+            ySpeed = scrApproach(ySpeed, 11, phyGrv*global.idDelta);
             switch (sign(ySpeed))
             {
                 case 1:
