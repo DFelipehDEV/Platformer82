@@ -4,11 +4,10 @@
     switch (argument2)
     {
         case collisionSolid:
-            solidPlace = instance_place(floor(argument0), floor(argument1), parSolid)
+            solidPlace = place_meeting(floor(argument0), floor(argument1), parSolid);
             // -- Check solid
             if (solidPlace)
             {
-                terrainID      = solidPlace.id;
                 terrainCurrent = terrainSolid;
                 return true;
             }
@@ -17,7 +16,7 @@
             // -- Check platform
             if (platformPlace)
             {
-                terrainID      = platformPlace.id
+                platformID      = platformPlace.id;
                 terrainCurrent = terrainPlatform;
                 if (ySpeed >= 0)
                 {

@@ -16,11 +16,11 @@ applies_to=self
 
     // -- Slopes and collision
     slopeHeight = 0;        // -- Slope height used while going up
-    terrainID = 0;          // -- ID of the meeting terrain
     terrainCurrent = 0;     // -- Type of terrain being encountered (solid or platform)
     terrainAngle = 0;       // -- Angle of the terrain being encountered
     solidPlace = 0;
     platformPlace = 0;
+    platformID = 0;         // -- ID of the meeting platform
 
     // -- Draw coordinates
     drawX = x;
@@ -147,9 +147,9 @@ applies_to=self
 
                 case terrainPlatform:
                     // -- Check if we are above the platform
-                    if (y < terrainID.y - 12 + ySpeed)
+                    if (y < platformID.y - 12 + ySpeed)
                     {
-                        y = terrainID.y - 16;
+                        y = platformID.y - 16;
                         ground = true;
                         ySpeed = 0;
                     }

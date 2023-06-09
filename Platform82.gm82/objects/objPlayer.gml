@@ -15,11 +15,11 @@ applies_to=self
     // -- Terrain
     slopeHeight = 0;            // -- Slope height used while going up
     slopeMax = 7;               // -- Max slope height the player can move
-    terrainID = 0;              // -- ID of the meeting terrain
     terrainCurrent = 0;         // -- Whether the player is meeting a solid or a platform
     terrainAngle = 0;           // -- Angle of terrain
     solidPlace = 0;
     platformPlace = 0;
+    platformID = 0;             // -- ID of the meeting platform
 
     // -- States
     action = actionNormal;      // -- Current player state
@@ -222,9 +222,9 @@ applies_to=self
 
                 case terrainPlatform:
                     // -- Check if we are above the platform
-                    if (y < terrainID.y - 12 + ySpeed)
+                    if (y < platformID.y - 12 + ySpeed)
                     {
-                        y = terrainID.y - 16;
+                        y = platformID.y - 16;
                         ground = true;
                         ySpeed = 0;
                     }
