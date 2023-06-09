@@ -32,7 +32,7 @@
                     if (input.inputAction == false)
                     {
                         // -- Cancel the jump
-                        ySpeed = -phyGrv;
+                        ySpeed = -phyGrv*global.idDelta;
                     }
                 break;
             }
