@@ -18,7 +18,7 @@
 
         case 0:
             // -- Apply gravity
-            ySpeed = scrApproach(ySpeed, 11, phyGrv*global.idDelta);
+            ySpeed = scrApproach(ySpeed, 11, phyGrv*global.delta);
             switch (sign(ySpeed))
             {
                 case 1:
@@ -32,7 +32,7 @@
                     if (input.inputAction == false)
                     {
                         // -- Cancel the jump
-                        ySpeed = -phyGrv*global.idDelta;
+                        ySpeed = -phyGrv*global.delta;
                     }
                 break;
             }

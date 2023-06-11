@@ -22,6 +22,8 @@ applies_to=self
     platformPlace = 0;
     platformID = 0;         // -- ID of the meeting platform
 
+    meetingWall = false;
+
     // -- Draw coordinates
     drawX = x;
     drawY = y;
@@ -42,7 +44,7 @@ applies_to=self
         !scrCollisionMain(x + xSpeed, y, collisionSolid) &&
         !scrCollisionMain(x + xSpeed, y + 1, collisionSolid))
     {
-        x += xSpeed * global.idDelta;
+        x += xSpeed * global.delta;
 
         for (i = 0; i < spdFloor + 2; i += 1)
         {
@@ -89,15 +91,17 @@ applies_to=self
                     x += sign(xSpeed);
                 }
                 xSpeed = 0;
+                meetingWall = true;
             }
             else // -- Otherwise, we are moving up a slope
             {
                 y -= slopeHeight;
+                meetingWall = false;
             }
         }
 
         // -- Approach to the xSpeed
-        x += xSpeed;
+        x += xSpeed * global.delta;
     }
 
     if (ground == false)
@@ -123,7 +127,7 @@ applies_to=self
     }
 
     // -- Approach to the ySpeed
-    y += ySpeed;
+    y += ySpeed * global.delta;
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
@@ -179,7 +183,7 @@ applies_to=self
     // -- Unclip from the object
     if (near != noone)
     {
-        if ((place_meeting(bbox_left, y - 16, parTerrain) && scrPhysicsReturnDir(near) <= 0) || (place_meeting(bbox_right, y - 16, parTerrain) && scrPhysicsReturnDir(near) > 0))
+        if ((place_meeting(x - 1, y - 16, parTerrain) && scrPhysicsReturnDir(near) <= 0) || (place_meeting(x + 1, y - 16, parTerrain) && scrPhysicsReturnDir(near) > 0))
         {
             // -- Don't push if the object is being pushed towards a wall
             exit;
@@ -191,6 +195,10 @@ applies_to=self
             y -= sign(near.y - y);
         
             xSpeed -= sign(near.x - x);
+            if (near.meetingWall == true)
+            {
+                xSpeed = 0;
+            }
         }
     }
 /*"/*'/**//* YYD ACTION
@@ -249,7 +257,7 @@ applies_to=self
     // -- Loose speed
     xSpeed -= min(abs(xSpeed), 0.04) * sign(xSpeed);
 
-    image_angle += xSpeed*2;
+    image_angle += xSpeed*2 * global.delta;
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1

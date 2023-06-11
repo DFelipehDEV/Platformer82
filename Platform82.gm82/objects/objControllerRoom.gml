@@ -15,8 +15,8 @@ applies_to=self
 */
 /// -- Room control
 
-    global.idDelta = ((delta_time*1000)/1000000) / (1/60);
-    global.roomTimer += 1 * global.idDelta;
+    global.delta = ((delta_time*1000)/1000000) / (1/60);
+    global.roomTimer += 1 * global.delta;
 
     if (keyboard_check_pressed(ord("R")))
     {

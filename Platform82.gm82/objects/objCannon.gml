@@ -29,7 +29,7 @@ applies_to=self
     if (state = 0)
     {
         // -- Rotate the object towards a target angle
-        image_angle = lerp(image_angle, 120 * image_xscale, 0.05)
+        image_angle = lerp(image_angle, 120 * image_xscale, 0.05*global.delta)
         // -- Check if the object is near an interactable object with the same angle
         if (place_meeting(x, y, parInteractable) && scrRoundNearMultiple(image_angle, 22.5) == scrRoundNearMultiple(120 * image_xscale, 22.5))
         {
@@ -47,19 +47,19 @@ applies_to=self
     if (state == 1)
     {
         // -- Increase the rotation time
-        rotateTime += 3;
+        rotateTime += 3*global.delta;
 
         if (rotateTime < 310)
         {
             // -- Rotate cannon to face the launch direction
-            image_angle = scrApproach(image_angle, dcos(rotateTime) * 90* image_xscale, 5);
+            image_angle = scrApproach(image_angle, dcos(rotateTime) * 90* image_xscale, 5*global.delta);
             objectIndex.x = x + dcos(image_angle + 90)*12;
             objectIndex.y = y - dsin(image_angle + 90)*12;
         }
         else // -- Prepare launch
         {
             // -- Rotate cannon to face the launch direction
-            image_angle = lerp(image_angle, angle, 0.3);
+            image_angle = lerp(image_angle, angle, 0.3*global.delta);
 
             // -- Check if its looking near of the expected launch direction
             if (rotateTime > 320)

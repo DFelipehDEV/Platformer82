@@ -11,6 +11,8 @@ applies_to=self
     // -- Speeds
     xSpeed = 0;                 // -- Horizontal speed (ground and air)
     ySpeed = 0;                 // -- Vertical speed (airborne)
+    xVelocity = 0;              // -- Horizontal speed (read only)
+    yVelocity = 0;              // -- Vertical speed (read only)
 
     // -- Terrain
     slopeHeight = 0;            // -- Slope height used while going up
@@ -20,6 +22,7 @@ applies_to=self
     solidPlace = 0;
     platformPlace = 0;
     platformID = 0;             // -- ID of the meeting platform
+    meetingWall = false;
 
     // -- States
     action = actionNormal;      // -- Current player state
@@ -90,7 +93,7 @@ applies_to=self
         !scrCollisionMain(x + xSpeed, y, collisionSolid) &&
         !scrCollisionMain(x + xSpeed, y + 1, collisionSolid))
     {
-        x += xSpeed * global.idDelta;
+        x += xSpeed * global.delta;
 
         // -- Go down
         while (!(scrCollisionMain(x, y + 1, collisionSolid)))
@@ -103,6 +106,8 @@ applies_to=self
         // -- Check if is meeting a solid
         var collisionMain;
         collisionMain = scrCollisionMain(x + xSpeed, y, collisionSolid);
+
+        meetingWall = false;
 
         if (collisionMain)
         {
@@ -137,6 +142,7 @@ applies_to=self
                 if (terrainCurrent != terrainPlatform)
                 {
                     xSpeed = 0;
+                    meetingWall = true;
                 }
             }
             else // -- Otherwise, we are moving up a slope
@@ -146,7 +152,7 @@ applies_to=self
         }
 
         // -- Approach to the xSpeed
-        x += xSpeed * global.idDelta;
+        x += xSpeed * global.delta;
     }
 
     var collisionVertical, collisionLeave;
@@ -169,7 +175,7 @@ applies_to=self
     }
 
     // -- Approach to the ySpeed
-    y += ySpeed * global.idDelta;
+    y += ySpeed * global.delta;
 /*"/*'/**//* YYD ACTION
 lib_id=1
 action_id=603
@@ -281,7 +287,7 @@ applies_to=self
     if (animFinished == false && animSpeed != 0)
     {
         // -- Change the frame depending on the animation speed
-        animFrame += animSpeed*global.idDelta;
+        animFrame += animSpeed*global.delta;
 
         if (floor(animFrame) > animFrameEnd)
         {
@@ -310,15 +316,19 @@ applies_to=self
     if (place_meeting(x + xSpeed, y, physicalobj))
     {
         // -- Check if the object is touching a wall or another object
-        if place_meeting(physicalobj.x - 24, physicalobj.y - 3, parTerrain) //&& scrPhysicsReturnDir(physicalobj) <= 0
+        /*if place_meeting(physicalobj.x - 24, physicalobj.y - 3, parTerrain) //&& scrPhysicsReturnDir(physicalobj) <= 0
         || place_meeting(physicalobj.x + 24, physicalobj.y - 3, parTerrain) //&& scrPhysicsReturnDir(physicalobj) == 1
         {
             exit;
         }
         else
         {
-            physicalobj.xSpeed = (x - xprevious);
-            physicalobj.image_angle += x - xprevious;
+            x -= sign(physicalobj.x - x);
+            //physicalobj.image_angle += x - xprevious;
+        }*/
+        if (physicalobj.meetingWall == true)
+        {
+            xSpeed = 0;
         }
     }
 /*"/*'/**//* YYD ACTION
@@ -337,6 +347,15 @@ applies_to=self
             instance_destroy();
         }
     }
+/*"/*'/**//* YYD ACTION
+lib_id=1
+action_id=603
+applies_to=self
+*/
+/// -- Velocity
+
+    xVelocity = (xprevious - x) / global.delta;
+    yVelocity = (yprevious - y) / global.delta;
 #define Draw_0
 /*"/*'/**//* YYD ACTION
 lib_id=1
