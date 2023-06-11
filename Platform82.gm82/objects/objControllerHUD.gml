@@ -8,7 +8,7 @@ applies_to=self
 
     draw_set_color(c_white)
     draw_set_font(debugFont)
-    draw_text(view_xview[0] + 16, view_yview[0] + 16, string(fps))
+    draw_text(view_xview[0] + 16, view_yview[0] + 8, "O - LESS FPS#P - MORE FPS#" + string(fps))
     if (global.debug == -1) exit;
     draw_sprite_ext(sprCameraTrigger, 0, view_xview[0] + 200, view_yview[0] + 155, 179+48, 85, 0, c_black, 1);
     draw_text(view_xview[0] + 32, view_yview[0] + 32, string(global.delta));

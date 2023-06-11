@@ -15,7 +15,7 @@ applies_to=self
 */
 /// -- Room control
 
-    global.delta = ((delta_time*1000)/1000000) / (1/60);
+    global.delta = ((delta_time*1000)/1000000) / (1/FRAMERATE);
     global.roomTimer += 1 * global.delta;
 
     if (keyboard_check_pressed(ord("R")))
@@ -28,7 +28,7 @@ applies_to=self
         room_speed += 10;
     }
 
-    if (keyboard_check_pressed(ord("O")))
+    if (keyboard_check_pressed(ord("O")) && room_speed > 20)
     {
         room_speed -= 10;
     }

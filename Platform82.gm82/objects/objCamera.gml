@@ -6,7 +6,6 @@ applies_to=self
 */
 /// -- Variables
 
-
     camTarget = -1;
 
     camXShift = 0;
